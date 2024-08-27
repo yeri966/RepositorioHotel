@@ -1,5 +1,5 @@
 package co.edu.uniquindio.RepositorioHotel;
-
+/*Creacion de la clase habitacion con los atributos de numero, tipo, precio*/
 public class Habitacion {
     private final String numero;
     private final TipoHabitacion tipo;
