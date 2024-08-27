@@ -18,32 +18,36 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
     }
 
+        public Habitacion getHabitacion() {
+        return habitacion; }
+        public void setHabitacion(Habitacion habitacion) { this.habitacion = habitacion; }
+    
+        public Cliente getCliente() {
+        return cliente; }
+        public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    
+        public LocalDateTime getFechaEntrada() {
+        return fechaEntrada; }
+        public void setFechaEntrada(LocalDateTime fechaEntrada) { this.fechaEntrada = fechaEntrada; }
+    
+        public LocalDateTime getFechaSalida() {
+        return fechaSalida; }
+        public void setFechaSalida(LocalDateTime fechaSalida) {
+        this.fechaSalida = fechaSalida; }
+
+
     public int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
         Duration tiempo = Duration.between(this.fechaEntrada, this.fechaSalida);
         long dias = tiempo.toDays();
         return (int) dias;
     }
 
-    public double calcularPrecio(){
-        int diasReservados = calcularTiempo(fechaEntrada, fechaSalida);
-        double precioHabitacion = habitacion.getPrecio();
-        return diasReservados * precioHabitacion;
-    }
+        public double calcularPrecio(){
+            int diasReservados = calcularTiempo(fechaEntrada, fechaSalida);
+            double precioHabitacion = habitacion.getPrecio();
+            return diasReservados * precioHabitacion;
 
-    public Habitacion getHabitacion() {
-        return habitacion;
-    }
-    public Cliente getCliente() {
-        return cliente;
-    }
-    public LocalDateTime getFechaEntrada() {
-        return fechaEntrada;
-    }
-    public LocalDateTime getFechaSalida() {
-        return fechaSalida;
-    }
-    public void setFechaSalida(LocalDateTime fechaSalida) {
-        this.fechaSalida = fechaSalida;
-    }
+        }
 
+    }
 }
