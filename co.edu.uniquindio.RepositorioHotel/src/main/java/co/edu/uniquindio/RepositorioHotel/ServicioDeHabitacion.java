@@ -12,4 +12,8 @@ public class ServicioDeHabitacion extends Servicio implements Consumible{
     public void consumir() {
         System.out.println("Consumiendo Servicio de Habitacion"+habitacion.getNumero());
     }
+
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
+    }
 }

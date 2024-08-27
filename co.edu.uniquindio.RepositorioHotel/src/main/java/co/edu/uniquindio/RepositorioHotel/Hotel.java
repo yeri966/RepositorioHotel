@@ -33,6 +33,7 @@ public class Hotel {
             Reserva nuevaReserva = new Reserva(habitacion, cliente, fechaEntrada, fechaSalida);
             reservas.add(nuevaReserva);
             habitacion.setCliente(cliente); //Cambia el estado a OCUPADO
+            cliente.getReservas().add(nuevaReserva);
             addCliente(cliente);
         } else {
             System.out.println("La habitación está ocupada");
@@ -54,7 +55,7 @@ public class Hotel {
 
     private boolean verificarHabitacionExiste(String numero) {
         for (Habitacion habitacion : habitaciones) {
-            if (habitacion.getNumero() == numero) {
+            if (habitacion.getNumero().equals(numero)) {
                 return true;
             }
         }

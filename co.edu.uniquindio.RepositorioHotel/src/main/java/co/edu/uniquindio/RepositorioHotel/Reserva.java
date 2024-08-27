@@ -20,15 +20,13 @@ public class Reserva {
 
         public Habitacion getHabitacion() {
         return habitacion; }
-        public void setHabitacion(Habitacion habitacion) { this.habitacion = habitacion; }
-    
+
         public Cliente getCliente() {
         return cliente; }
         public void setCliente(Cliente cliente) { this.cliente = cliente; }
     
         public LocalDateTime getFechaEntrada() {
         return fechaEntrada; }
-        public void setFechaEntrada(LocalDateTime fechaEntrada) { this.fechaEntrada = fechaEntrada; }
     
         public LocalDateTime getFechaSalida() {
         return fechaSalida; }
@@ -45,9 +43,13 @@ public class Reserva {
         public double calcularPrecio(){
             int diasReservados = calcularTiempo(fechaEntrada, fechaSalida);
             double precioHabitacion = habitacion.getPrecio();
-            return diasReservados * precioHabitacion;
+            double precioTotal = diasReservados * precioHabitacion;
+            for(Servicio servicio : habitacion.getServicios()){
+                precioTotal += servicio.calcularPrecioServicio();
+            }
+
+            return precioTotal;
 
         }
 
-    }
 }
