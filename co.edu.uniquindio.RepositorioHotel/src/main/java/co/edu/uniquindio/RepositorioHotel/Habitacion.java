@@ -7,12 +7,21 @@ public class Habitacion {
     private Estado estado;
     private Cliente cliente;
 
+
+    public enum TipoHabitacion {
+        SIMPLE, DOBLE, SUITE
+    }
+
+    public enum Estado {
+        LIBRE, OCUPADO
+    }    
+
     public Habitacion(String numero, TipoHabitacion tipo, double precio){
         this.numero = numero;
         this.tipo = tipo;
         this.precio = precio;
         this.estado = Estado.LIBRE;
-        this.cliente = cliente;
+        this.cliente = null;
 
     }
     public String getNumero() {
@@ -33,11 +42,11 @@ public class Habitacion {
     
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-        if(cliente == null){
-            estado = Estado.LIBRE;
+        if (cliente != null){
+            this.estado = Estado.OCUPADO;
         }
         else {
-            estado = Estado.OCUPADO;
+            this.estado = Estado.LIBRE;
         }
     }
     public Estado getEstado(){
