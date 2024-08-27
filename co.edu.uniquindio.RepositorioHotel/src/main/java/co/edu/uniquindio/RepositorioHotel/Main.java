@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Hotel hotel = new Hotel();
-
+/*Decision while la cual nos permite seleccionar un item */
         while(true){
             System.out.println("Selecciona una de las siguientes opciones: ");
             System.out.println("1. Crear una habitación: ");
@@ -21,6 +21,7 @@ public class Main {
             int opcion = sc.nextInt();
             sc.nextLine();
 
+/*Agregar una habitacion*/
             switch(opcion){
                 case 1:
                     Habitacion habitacion = capturarDatosHabitacion();
@@ -28,12 +29,14 @@ public class Main {
                     System.out.println("La habitación ha sido creada correctamente");
                     break;
 
+/*Agrega los datos de un cliente*/
                 case 2:
                     Cliente cliente  = capturarDatosCliente();
                     hotel.addCliente(cliente);
                     System.out.println("El cliente con nombre: '" + cliente.getNombre() + "' y dni: '" + cliente.getDni() + "' ha sido creado correctamente");
                     break;
 
+/*Realiza la busqueda de un cliente, con el DNI*/
                 case 3:
                     System.out.print("Ingrese DNI del cliente: ");
                     String dni = sc.nextLine();
@@ -42,6 +45,7 @@ public class Main {
                         System.out.println("Cliente no encontrado.");
                         break;
                     }
+/*Realiza la busqueda de una habitacion reservada, con el numero de la misma*/
                     System.out.print("Ingrese número de la habitación: ");
                     String numeroReserva = sc.nextLine();
                     Habitacion habitacionReserva = hotel.getHabitaciones().stream().filter(h -> h.getNumero().equals(numeroReserva)).findFirst().orElse(null);
@@ -51,11 +55,11 @@ public class Main {
                     }
                     System.out.print("Ingrese número de días: ");
                     int dias = sc.nextInt();
-                    sc.nextLine(); // Consumir la nueva línea
+                    sc.nextLine();
                     hotel.addClienteHabitacion(clienteReserva, habitacionReserva, dias);
                     System.out.println("La reserva ha sido creada correctamente");
                     break;
-
+/*Muestra el servicio que tiene la habitacion*/
                 case 4:
                     System.out.print("Ingrese número de la habitación: ");
                     String numero = sc.nextLine();
@@ -88,7 +92,7 @@ public class Main {
                     habitacionXservicio.addServicio(servicio);
                     System.out.println("Servicio de agregado a la habitación " + numero);
                     break;
-
+/*Mediante el DNI del cliente muestra las reservas realizadas*/
                 case 5:
                     System.out.println("Ingrese el DNI del cliente para mostrar sus reservas ");
                     String dniReserva = sc.nextLine();
@@ -110,7 +114,7 @@ public class Main {
             }
         }
     }
-
+/*Captura los datos del cliente*/
     private static Cliente capturarDatosCliente(){
         Scanner sc = new Scanner(System.in);
 
@@ -121,7 +125,7 @@ public class Main {
 
         return new Cliente(nombre, dni);
     }
-
+/*Captura los datos de la habitacion*/
     private static Habitacion capturarDatosHabitacion(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese el numero de habitación: ");
@@ -134,7 +138,7 @@ public class Main {
 
         return new Habitacion(numero, tipo, precio);
     }
-
+/*Muestra y agrega las reservas realizadas por el cliente*/
     private static void mostrarReservasCliente(Cliente cliente, Hotel hotel) {
         Collection<Reserva> reservasCliente = new LinkedList<>();
         for (Reserva reserva : hotel.getReservas()) {
@@ -154,7 +158,7 @@ public class Main {
                 for (Servicio s : reserva.getHabitacion().getServicios()) {
                     System.out.println(" - " + s.getClass().getSimpleName() + " con un costo de " + s.calcularPrecioServicio());
                 }
-                System.out.println("Costo total de la reserva: " + reserva.calcularPrecio());
+                System.out.println("Costo total de la reserva: " + reserva.calcularPrecio());/*Precio total a pagar*/
                 System.out.println();
             }
         }
