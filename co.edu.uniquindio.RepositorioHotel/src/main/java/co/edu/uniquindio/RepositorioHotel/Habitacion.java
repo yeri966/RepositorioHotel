@@ -12,6 +12,8 @@ public class Habitacion {
         this.tipo = tipo;
         this.precio = precio;
         this.estado = Estado.LIBRE;
+        this.cliente = cliente;
+
     }
     public String getNumero() {
         return numero;
