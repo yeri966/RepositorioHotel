@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/*Creacion de la clase habitacion, con sus respectivos atributos*/
 public class Habitacion {
     private final String numero;
     private final TipoHabitacion tipo;
@@ -21,6 +22,7 @@ public class Habitacion {
         this.servicios = new LinkedList<>();
 
     }
+    /*Metodos set y get de la clase*/
     public String getNumero() {
         return numero;
     }
@@ -36,7 +38,8 @@ public class Habitacion {
     public Cliente getCliente() {
         return cliente;
     }
-    
+
+    /*Metodo para actualizar el estado*/
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
         if (cliente != null){
@@ -46,7 +49,7 @@ public class Habitacion {
             this.estado = Estado.LIBRE;
         }
     }
-
+/*metodo para agregar un servicio*/
     public void addServicio(Servicio servicio){
         servicios.add(servicio);
     }
@@ -56,6 +59,12 @@ public class Habitacion {
     public void setEstado(Estado estado){
         this.estado = estado;
     }
+
+    public Collection <Servicio> getServicios(){
+        return Collections.unmodifiableCollection(servicios);
+    }
+
+}
 
     public Collection <Servicio> getServicios(){
         return Collections.unmodifiableCollection(servicios);
