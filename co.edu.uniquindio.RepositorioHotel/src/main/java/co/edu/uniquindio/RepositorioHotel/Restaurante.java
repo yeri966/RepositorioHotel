@@ -1,5 +1,6 @@
 package co.edu.uniquindio.RepositorioHotel;
 
+/*Creacion de la clase Restaurante la cual hereda de la clase Servicio e implementa dela interface Consumible*/
 public class Restaurante extends Servicio implements Consumible{
     @Override
     public double calcularPrecioServicio() {
@@ -11,3 +12,4 @@ public class Restaurante extends Servicio implements Consumible{
         System.out.println("Consumiendo servicio de Restaurante");
     }
 }
+
