@@ -16,7 +16,7 @@ public class Hotel {
         this.reservas = new LinkedList<>();
     }
 
-    public void crearHabitaciones(int numero, TipoHabitacion tipo, double precio) {
+    public void crearHabitaciones(String numero, TipoHabitacion tipo, double precio) {
         if(verificarHabitacionExiste(numero)) {
             System.out.println("Error: la habitación con número: " + numero + "ya existe");
             return;
@@ -52,7 +52,7 @@ public class Hotel {
         }
     }
 
-    private boolean verificarHabitacionExiste(int numero) {
+    private boolean verificarHabitacionExiste(String numero) {
         for (Habitacion habitacion : habitaciones) {
             if (habitacion.getNumero() == numero) {
                 return true;
