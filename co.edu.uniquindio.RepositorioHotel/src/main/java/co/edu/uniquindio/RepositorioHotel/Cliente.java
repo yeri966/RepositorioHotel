@@ -11,7 +11,7 @@ public class Cliente {
     public Cliente(String nombre, String dni) {
         this.nombre = nombre;
         this.dni = dni;
-        this.reservas = new LinkedList<Reserva>();
+        this.reservas = new LinkedList<>();
     }
     public String getNombre() {
         return nombre;

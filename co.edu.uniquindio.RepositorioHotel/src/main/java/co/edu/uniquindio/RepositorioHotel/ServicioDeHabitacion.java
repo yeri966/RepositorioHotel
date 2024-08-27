@@ -10,7 +10,12 @@ public class ServicioDeHabitacion extends Servicio implements Consumible{
 
     @Override
     public void consumir() {
-        System.out.println("Consumiendo Servicio de Habitacion"+habitacion.getNumero());
+        if(habitacion != null){
+            System.out.println("Consumiendo Servicio de Habitacion"+habitacion.getNumero());
+        }else{
+            System.out.println("Habitacion no asignada");
+        }
+
     }
 
     public void setHabitacion(Habitacion habitacion) {

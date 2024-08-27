@@ -1,7 +1,6 @@
 package co.edu.uniquindio.RepositorioHotel;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Reserva {
@@ -34,14 +33,14 @@ public class Reserva {
         this.fechaSalida = fechaSalida; }
 
 
-    public int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
+    public int calcularTiempo() {
         Duration tiempo = Duration.between(this.fechaEntrada, this.fechaSalida);
         long dias = tiempo.toDays();
         return (int) dias;
     }
 
         public double calcularPrecio(){
-            int diasReservados = calcularTiempo(fechaEntrada, fechaSalida);
+            int diasReservados = calcularTiempo();
             double precioHabitacion = habitacion.getPrecio();
             double precioTotal = diasReservados * precioHabitacion;
             for(Servicio servicio : habitacion.getServicios()){

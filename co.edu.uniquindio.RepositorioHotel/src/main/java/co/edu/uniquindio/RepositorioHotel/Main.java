@@ -1,5 +1,7 @@
 package co.edu.uniquindio.RepositorioHotel;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
@@ -8,65 +10,57 @@ public class Main {
         Hotel hotel = new Hotel();
 
         while(true){
-            System.out.println("Gestión del Hotel");
-            System.out.println("1. Crear Habitacion");
-            System.out.println("2. Crear Cliente");
-            System.out.println("3. Realizar Reserva");
-            System.out.println("4. Agregar servicio");
-            System.out.println("5. Mostrar Reservas");
+            System.out.println("Selecciona una de las siguientes opciones: ");
+            System.out.println("1. Crear una habitación: ");
+            System.out.println("2. Crear un cliente: ");
+            System.out.println("3. Realizar una reserva: ");
+            System.out.println("4. Agregar un servicio: ");
+            System.out.println("5. Mostrar reservas");
             System.out.println("6. salir");
-            System.out.println("Seleccione una opción: ");
+            System.out.println("opción a seleccionar: ");
             int opcion = sc.nextInt();
             sc.nextLine();
 
             switch(opcion){
                 case 1:
-                    System.out.println("Ingrese el número de la habitación: ");
-                    String numero = sc.nextLine();
-                    System.out.print("Ingrese tipo de habitación (SIMPLE, DOBLE, SUITE): ");
-                    TipoHabitacion tipo = TipoHabitacion.valueOf(sc.nextLine().toUpperCase());
-                    System.out.print("Ingrese precio de la habitación: ");
-                    double precio = sc.nextDouble();
-                    sc.nextLine(); // Consumir la nueva línea
-                    hotel.crearHabitaciones(numero, tipo, precio);
+                    Habitacion habitacion = capturarDatosHabitacion();
+                    hotel.addHabitacion(habitacion);
+                    System.out.println("La habitación ha sido creada correctamente");
                     break;
 
                 case 2:
-                    System.out.print("Ingrese nombre del cliente: ");
-                    String nombre = sc.nextLine();
-                    System.out.print("Ingrese DNI del cliente: ");
-                    String dni = sc.nextLine();
-                    Cliente cliente = new Cliente(nombre, dni);
+                    Cliente cliente  = capturarDatosCliente();
                     hotel.addCliente(cliente);
-                    System.out.println("Cliente agregado: " + nombre + ", DNI: " + dni);
+                    System.out.println("El cliente con nombre: '" + cliente.getNombre() + "' y dni: '" + cliente.getDni() + "' ha sido creado correctamente");
                     break;
 
                 case 3:
                     System.out.print("Ingrese DNI del cliente: ");
-                    dni = sc.nextLine();
-                    cliente = hotel.getClientes().stream().filter(c -> c.getDni().equals(dni)).findFirst().orElse(null);
-                    if (cliente == null) {
+                    String dni = sc.nextLine();
+                    Cliente clienteReserva = hotel.getClientes().stream().filter(c -> c.getDni().equals(dni)).findFirst().orElse(null);
+                    if (clienteReserva == null) {
                         System.out.println("Cliente no encontrado.");
                         break;
                     }
                     System.out.print("Ingrese número de la habitación: ");
-                    numero = sc.nextLine();
-                    Habitacion habitacion = hotel.getHabitaciones().stream().filter(h -> h.getNumero().equals(numero)).findFirst().orElse(null);
-                    if (habitacion == null) {
+                    String numeroReserva = sc.nextLine();
+                    Habitacion habitacionReserva = hotel.getHabitaciones().stream().filter(h -> h.getNumero().equals(numeroReserva)).findFirst().orElse(null);
+                    if (habitacionReserva == null) {
                         System.out.println("Habitación no encontrada.");
                         break;
                     }
                     System.out.print("Ingrese número de días: ");
                     int dias = sc.nextInt();
                     sc.nextLine(); // Consumir la nueva línea
-                    hotel.addClienteHabitacion(cliente, habitacion, dias);
+                    hotel.addClienteHabitacion(clienteReserva, habitacionReserva, dias);
+                    System.out.println("La reserva ha sido creada correctamente");
                     break;
 
                 case 4:
                     System.out.print("Ingrese número de la habitación: ");
-                    numero = sc.nextLine();
-                    habitacion = hotel.getHabitaciones().stream().filter(h -> h.getNumero().equals(numero)).findFirst().orElse(null);
-                    if (habitacion == null) {
+                    String numero = sc.nextLine();
+                    Habitacion habitacionXservicio = hotel.getHabitaciones().stream().filter(h -> h.getNumero().equals(numero)).findFirst().orElse(null);
+                    if (habitacionXservicio == null) {
                         System.out.println("Habitación no encontrada.");
                         break;
                     }
@@ -91,23 +85,19 @@ public class Main {
                             System.out.println("Opción no válida.");
                             continue;
                     }
-                    habitacion.addServicio(servicio);
-                    System.out.println("Servicio agregado a la habitación " + numero);
+                    habitacionXservicio.addServicio(servicio);
+                    System.out.println("Servicio de agregado a la habitación " + numero);
                     break;
 
                 case 5:
-                    for (Reserva reserva : hotel.getReservas()) {
-                        System.out.println("Reserva para " + reserva.getCliente().getNombre() +
-                                " en habitación " + reserva.getHabitacion().getNumero());
-                        System.out.println("Fecha de entrada: " + reserva.getFechaEntrada());
-                        System.out.println("Fecha de salida: " + reserva.getFechaSalida());
-                        System.out.println("Servicios contratados:");
-                        for (Servicio s : reserva.getHabitacion().getServicios()) {
-                            System.out.println(" - " + s.getClass().getSimpleName() + " con un costo de " + s.calcularPrecioServicio());
-                        }
-                        System.out.println("Costo total de la reserva: " + reserva.calcularPrecio());
-                        System.out.println();
+                    System.out.println("Ingrese el DNI del cliente para mostrar sus reservas ");
+                    String dniReserva = sc.nextLine();
+                    Cliente clienteMostrar = hotel.getClientes().stream().filter(c -> c.getDni().equals(dniReserva)).findFirst().orElse(null);
+                    if(clienteMostrar == null){
+                        System.out.println("Cliente no encontrado.");
+                        break;
                     }
+                    mostrarReservasCliente(clienteMostrar, hotel);
                     break;
 
                 case 6:
@@ -117,6 +107,55 @@ public class Main {
 
                 default:
                     System.out.println("Opción no válida.");
+            }
+        }
+    }
+
+    private static Cliente capturarDatosCliente(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el nombre del cliente: ");
+        String nombre = sc.nextLine();
+        System.out.print("Ingrese dni del cliente: ");
+        String dni = sc.nextLine();
+
+        return new Cliente(nombre, dni);
+    }
+
+    private static Habitacion capturarDatosHabitacion(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el numero de habitación: ");
+        String numero = sc.nextLine();
+        System.out.println("Ingrese el tipo de habitacion (SIMPLE, DOBLE, SUITE): ");
+        TipoHabitacion tipo = TipoHabitacion.valueOf(sc.next().toUpperCase());
+        System.out.println("Ingrese el precio de la habitación: ");
+        double precio = sc.nextDouble();
+        sc.nextLine();
+
+        return new Habitacion(numero, tipo, precio);
+    }
+
+    private static void mostrarReservasCliente(Cliente cliente, Hotel hotel) {
+        Collection<Reserva> reservasCliente = new LinkedList<>();
+        for (Reserva reserva : hotel.getReservas()) {
+            if (reserva.getCliente().equals(cliente)) {
+                reservasCliente.add(reserva);
+            }
+        }
+        if (reservasCliente.isEmpty()) {
+            System.out.println("El cliente con DNI: '" + cliente.getDni()+ "' No tiene reservas activas");
+        } else {
+            for (Reserva reserva : reservasCliente) {
+                System.out.println("Reserva para " + reserva.getCliente().getNombre() +
+                        " en habitación " + reserva.getHabitacion().getNumero());
+                System.out.println("Fecha de entrada: " + reserva.getFechaEntrada());
+                System.out.println("Fecha de salida: " + reserva.getFechaSalida());
+                System.out.println("Servicios contratados:");
+                for (Servicio s : reserva.getHabitacion().getServicios()) {
+                    System.out.println(" - " + s.getClass().getSimpleName() + " con un costo de " + s.calcularPrecioServicio());
+                }
+                System.out.println("Costo total de la reserva: " + reserva.calcularPrecio());
+                System.out.println();
             }
         }
     }

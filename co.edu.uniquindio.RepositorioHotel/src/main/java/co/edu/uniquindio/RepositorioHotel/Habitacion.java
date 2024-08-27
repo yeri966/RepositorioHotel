@@ -46,6 +46,7 @@ public class Habitacion {
             this.estado = Estado.LIBRE;
         }
     }
+
     public void addServicio(Servicio servicio){
         servicios.add(servicio);
     }

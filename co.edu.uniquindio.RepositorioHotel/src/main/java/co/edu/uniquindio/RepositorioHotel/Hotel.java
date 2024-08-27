@@ -16,14 +16,13 @@ public class Hotel {
         this.reservas = new LinkedList<>();
     }
 
-    public void crearHabitaciones(String numero, TipoHabitacion tipo, double precio) {
-        if(verificarHabitacionExiste(numero)) {
-            System.out.println("Error: la habitación con número: " + numero + "ya existe");
-            return;
+    public void addHabitacion(Habitacion habitacion) {
+        if(verificarHabitacionExiste(habitacion.getNumero())) {
+            System.out.println("Error: la habitación con número: " + habitacion.getNumero() + "ya existe");
+            return;  //evita que la habitación se agregue si ya existe.
         }
-        Habitacion habitacionNueva = new Habitacion(numero, tipo, precio);
-        habitaciones.add(habitacionNueva);
-        System.out.println("Habitación número: '" + numero + "', de tipo: '" + tipo + "', y Precio: '" + precio + "' creada correctamente");
+        habitaciones.add(habitacion);
+        System.out.println("Habitación número: '" + habitacion.getNumero() + "', de tipo: '" + habitacion.getTipo() + "', y Precio: '" + habitacion.getPrecio() + "' creada correctamente");
     }
 
     public void addClienteHabitacion(Cliente cliente, Habitacion habitacion, int dias) {
@@ -39,18 +38,6 @@ public class Hotel {
             System.out.println("La habitación está ocupada");
         }
 
-    }
-
-    public void removeClienteHabitacion(Cliente cliente, Habitacion habitacion, LocalDateTime fechaSalida) {
-        var obtenerCliente = habitacion.getCliente();
-        if (obtenerCliente != null && obtenerCliente.equals(cliente)) {
-            for (Reserva reserva : reservas) {
-                if (reserva.getCliente().equals(obtenerCliente) && reserva.getHabitacion().equals(habitacion)) {
-                    reserva.setFechaSalida(fechaSalida);
-                }
-            }
-            habitacion.setCliente(null); //Cambia el estado a LIBRE
-        }
     }
 
     private boolean verificarHabitacionExiste(String numero) {
