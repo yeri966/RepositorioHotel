@@ -2,7 +2,7 @@ package co.edu.uniquindio.RepositorioHotel;
 
 import java.util.Collection;
 import java.util.LinkedList;
-
+ /* creacion de clase cliente con los atributos privados nombre y dni, y una lista de reservas */
 public class Cliente {
     private final String nombre;
     private final String dni;
