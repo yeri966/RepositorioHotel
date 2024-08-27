@@ -3,7 +3,7 @@ package co.edu.uniquindio.RepositorioHotel;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+/*Creacion de la clase reserva */
 public class Reserva {
     private final Habitacion habitacion;
     private Cliente cliente;
@@ -17,13 +17,13 @@ public class Reserva {
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
     }
-
+/*Metodo el cual nos permite calcular el tiempo en dias, que estuvo el cleinte en la habitacion*/
     public int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
         Duration tiempo = Duration.between(fechaEntrada, fechaSalida);
         long dias = tiempo.toDays();
         return (int) dias;
     }
-
+/*Metodo el cual nos permite clacular el precio total tomando los dias reservados * el precio de la habitacio*/
     public double calcularPrecio(){
         int diasReservados = calcularTiempo(fechaEntrada, fechaSalida);
         double precioHabitacion = habitacion.getPrecio();

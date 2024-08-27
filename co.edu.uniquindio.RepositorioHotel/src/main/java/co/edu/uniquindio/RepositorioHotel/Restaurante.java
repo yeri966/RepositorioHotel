@@ -1,5 +1,5 @@
 package co.edu.uniquindio.RepositorioHotel;
-
+/*Creacion de la clase Restaurante la cual hereda de la clase Servicio e implementa de Consumible*/
 public class Restaurante extends Servicio implements Consumible{
     @Override
     public double calcularPrecioServicio() {
