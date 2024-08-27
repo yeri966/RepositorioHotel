@@ -11,7 +11,7 @@ public class Reserva {
     private LocalDateTime fechaSalida;
 
 
-    public Reserva(Habitacion habitacion, Cliente cliente, LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
+    public Reserva (Habitacion habitacion, Cliente cliente, LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
         this.habitacion = habitacion;
         this.cliente = cliente;
         this.fechaEntrada = fechaEntrada;
@@ -19,7 +19,7 @@ public class Reserva {
     }
 
     public int calcularTiempo(LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
-        Duration tiempo = Duration.between(fechaEntrada, fechaSalida);
+        Duration tiempo = Duration.between(this.fechaEntrada, this.fechaSalida);
         long dias = tiempo.toDays();
         return (int) dias;
     }
