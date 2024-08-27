@@ -1,5 +1,7 @@
 package co.edu.uniquindio.RepositorioHotel;
 
+/*Creacion de la clase Limpieza la cual hereda de la clase Servicio e implementa dela interface Consumible*/
+
 public class Limpieza extends Servicio implements Consumible{
     @Override
     public double calcularPrecioServicio() {
@@ -10,4 +12,3 @@ public class Limpieza extends Servicio implements Consumible{
     public void consumir() {
         System.out.println("Consumiendo servicio de Limpieza");
     }
-}
